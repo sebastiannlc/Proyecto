@@ -1,7 +1,7 @@
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.Color;
+import java.awt.event.*;
 import java.awt.Font;
+import java.awt.Color;
 
 public class VentanaSaludo extends JFrame {
 
@@ -16,40 +16,66 @@ public class VentanaSaludo extends JFrame {
     }
 
     private void inicializarComponentes() {
+        crearComponentes();
+        configurarEstilos();
+        asignarEventos();
+        agregarComponentes();
+    }
+
+    private void crearComponentes() {
         campoTexto = new JTextField();
-        campoTexto.setBounds(50, 30, 200, 25);
+        campoTexto.setBounds(50, 40, 250, 30);
 
         botonSaludar = new JButton("Saludar");
-        botonSaludar.setBounds(270, 30, 100, 25);
+        botonSaludar.setBounds(310, 40, 100, 30);
 
         etiquetaSaludo = new JLabel("");
-        etiquetaSaludo.setBounds(50, 80, 300, 25);
+        etiquetaSaludo.setBounds(50, 90, 350, 30);
+    }
 
-        etiquetaSaludo.setBackground(Color.LIGHT_GRAY);
-        etiquetaSaludo.setOpaque(true);
-
-        Font fuente = new Font("Arial", Font.BOLD,18 );
+    private void configurarEstilos() {
+        Font fuente = new Font("Arial", Font.BOLD, 14);
         campoTexto.setFont(fuente);
         botonSaludar.setFont(fuente);
         etiquetaSaludo.setFont(fuente);
 
+        etiquetaSaludo.setBackground(Color.LIGHT_GRAY);
+        etiquetaSaludo.setOpaque(true);
+    }
+
+    private void asignarEventos() {
         botonSaludar.addActionListener(e -> {
             String nombre = campoTexto.getText();
-            etiquetaSaludo.setText("Hola, " + nombre );
+
+            if (nombre.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingresa tu nombre.");
+            } else {
+                etiquetaSaludo.setText("¡Hola, " + nombre + "!");
+            }
         });
 
+        campoTexto.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    botonSaludar.doClick();
+                }
+            }
+        });
+    }
+
+    private void agregarComponentes() {
         add(campoTexto);
         add(botonSaludar);
         add(etiquetaSaludo);
     }
 
     private void configurarVentana() {
-        setSize(400, 200);
+        setSize(450, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
 
-        getContentPane().setBackground(new Color(200,220,240));
+        getContentPane().setBackground(new Color(200, 220, 240));
     }
 
     public static void main(String[] args) {
