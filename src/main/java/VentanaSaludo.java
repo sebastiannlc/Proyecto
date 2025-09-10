@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
 
 public class VentanaSaludo extends JFrame {
 
@@ -23,6 +25,14 @@ public class VentanaSaludo extends JFrame {
         etiquetaSaludo = new JLabel("");
         etiquetaSaludo.setBounds(50, 80, 300, 25);
 
+        etiquetaSaludo.setBackground(Color.LIGHT_GRAY);
+        etiquetaSaludo.setOpaque(true);
+
+        Font fuente = new Font("Arial", Font.BOLD,18 );
+        campoTexto.setFont(fuente);
+        botonSaludar.setFont(fuente);
+        etiquetaSaludo.setFont(fuente);
+
         botonSaludar.addActionListener(e -> {
             String nombre = campoTexto.getText();
             etiquetaSaludo.setText("Hola, " + nombre );
@@ -38,6 +48,8 @@ public class VentanaSaludo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
+
+        getContentPane().setBackground(new Color(200,220,240));
     }
 
     public static void main(String[] args) {
